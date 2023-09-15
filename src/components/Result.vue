@@ -1,10 +1,15 @@
 <script setup>
+import { defineProps,computed } from 'vue';
+const { clickedScopes } = defineProps(['clickedScopes'])
+
 </script>
 
 <template>
     <div class="result-container">
         <div class="result">
-            <span class="scopes">+ +</span>
+            <span class="scopes" v-for="(scope, index) in clickedScopes" :key="scope">
+                {{ scope }} <span v-if="index < clickedScopes.length - 1">+ </span>
+            </span>
             <hr class="line">
             <span class="hours">Work hours: </span>
             <h3 class="total">Total: zł gross</h3>

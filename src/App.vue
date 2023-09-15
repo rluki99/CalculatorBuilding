@@ -5,12 +5,15 @@ import Scope from '../src/components/Scope.vue'
 import Section from '../src/components/Section.vue'
 import Result from '../src/components/Result.vue'
 
-const scope = data.find((scope) => scope.type === 'scopeDefinition').items
+const scopes = data.find((scope) => scope.type === 'scopeDefinition').items
 const sections = data.find((section) => section.type === 'sectionDefinition').items
 const showResult = ref(false)
+const allClickedItems = ref([])
 
-const clickedItem = (isSelected) => {
-	console.log(isSelected, '-clicked Item which is selected')
+const clickedItem = (selectedItems) => {
+	console.log(JSON.stringify(selectedItems), '-clicked Item which is selected');
+	
+	allClickedItems.value = selectedItems.map(x => x.name)
 }
 </script>
 
@@ -25,8 +28,8 @@ const clickedItem = (isSelected) => {
 			:data-index="index"
 			:sectionsLength="sections.length"
 			:sections="sections"
-			v-on:clickedItem="clickedItem" />
-      <Result v-if="showResult"/>
+			@allSelected="clickedItem" />
+      <Result v-if="showResult" :clickedScopes="allClickedItems"/>
       <button @click="showResult=true">Calculate results</button>
 	</div>
 </template>

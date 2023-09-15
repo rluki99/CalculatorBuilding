@@ -50,7 +50,7 @@ const isSelected = (item) => {
 			<h2>{{ section.name }}</h2>
 			<div class="options-container">
 				<div
-					@click="() => { toggleActive(item); $emit('allSelected', isSelected(item)); }"
+					@click="() => { toggleActive(item); $emit('allSelected', selectedItems); }"
 					:class="{ active: isSelected(item) }"
 					class="option"
 					v-for="(item, index) in section.items"
